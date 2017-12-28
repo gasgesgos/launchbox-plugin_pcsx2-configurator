@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -158,7 +159,23 @@ namespace PCSX2_Configurator
 
         public static System.Drawing.Icon EmulatorIcon()
         {
-            return Icon.ExtractAssociatedIcon(GetFullEmulatorPath());
+            Icon icon = null;
+            var path = GetFullEmulatorPath();
+            var pathUri = new Uri(path);
+            
+            // For UNC paths - create a default (blank) icon
+            if (pathUri.IsUnc)
+            {
+                var converter = new IconConverter();
+                var defaultIcon = new Bitmap(32, 32);
+                icon = Icon.FromHandle(defaultIcon.GetHicon());
+            }
+            else if (pathUri.IsFile)
+            {
+                icon = Icon.ExtractAssociatedIcon(path);
+            }
+           
+            return icon;
         }
 
         public bool ShowInBigBox
@@ -214,9 +231,7 @@ namespace PCSX2_Configurator
                 // Sets Action To Complete When Configure is Pressed On Selected Game
                 onConfigureClick = (sender, e) => SetConfigDirectories(selectedGame, configParams[2]);
                 SetConfigureOnClick(onConfigureClick);
-            }
-
-            
+            }          
 
             return onConfigureClick != null;
         }
