@@ -38,9 +38,10 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <!-- Hopefully this can be set up in the future as a nuget package if redistribution is allowed -->
     <Reference Include="Unbroken.LaunchBox.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=558191e84f56affc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\LaunchBox\Metadata\Unbroken.LaunchBox.Plugins.dll</HintPath>
+      <HintPath>Unbroken.LaunchBox.Plugins.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
